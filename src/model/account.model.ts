@@ -1,45 +1,29 @@
+import { Prop } from '@typegoose/typegoose';
+import { TimeStamps, Base } from '@typegoose/typegoose/lib/defaultClasses';
+import { Type } from 'class-transformer';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
-import { Prop } from "@typegoose/typegoose";
-import { TimeStamps, Base } from "@typegoose/typegoose/lib/defaultClasses";
-import { Type } from "class-transformer";
-import { IsNumber, IsOptional, IsString } from "class-validator";
+class AddressForReplenishment {
+  @IsString()
+  @Prop()
+  address: string;
 
-
-class MoneroWalletData{
-	@IsString()
-	@Prop({unique:true})
-	address:string;
-
-	@IsNumber()
-	@Prop({unique:true})
-	index:Number;
-
-	@IsNumber()
-	actualBalance:Number;
-
-	@IsNumber()
-	userBalance:Number;
+  @IsNumber()
+  @Prop()
+  index: Number;
 }
 
-export interface AccountModel extends Base{};
-export class AccountModel extends TimeStamps{
+export interface AccountModel extends Base {}
+export class AccountModel extends TimeStamps {
+  @IsString()
+  @Prop({ unique: true })
+  uid: string;
 
-	@IsString()
-	@Prop({unique:true})
-	uid:string;
+  @Type(() => AddressForReplenishment)
+  @Prop({ type: () => AddressForReplenishment, _id: false })
+  addressForReplenishment: AddressForReplenishment;
 
-
-	@Type(()=>MoneroWalletData)
-	@Prop({type:()=>MoneroWalletData, _id:false})
-	moneroWalletData: MoneroWalletData;
-	
-	// @IsOptional()
-	// @Prop()
-	// balanceRub?: string;
-
-
-
-
-
-	
+  // @IsOptional()
+  // @Prop()
+  // balanceRub?: string;
 }

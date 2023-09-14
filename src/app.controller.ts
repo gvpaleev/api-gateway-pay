@@ -1,33 +1,22 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { GetAddresDto } from './dto/get-address.dto';
 import { GetBalanceDto } from './dto/get-balance.dto';
-
+import { getAddressForReplenishmentDto } from './dto/address-for-replenishment.dto';
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService) {}
-
-
+  constructor(private readonly appService: AppService) {}
 
   @Post('getBalance')
-  async getBalance(@Body() dto: GetBalanceDto){
-    
+  async getBalance(@Body() dto: GetBalanceDto) {
     return this.appService.getBalance(dto);
-    
   }
 
-  @Post('getAddress')
-  async getAddress(@Body() dto: GetAddresDto){
-    
-    return this.appService.getAddress(dto);
-    
+  @Post('getAddressForReplenishment')
+  async getAddressForReplenishment(@Body() dto: getAddressForReplenishmentDto) {
+    return this.appService.getAddressForReplenishment(dto);
   }
 
   @Post('pay')
-  async pay(){
-    
-  }
-
+  async pay() {}
 }

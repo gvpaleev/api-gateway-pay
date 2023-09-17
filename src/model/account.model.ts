@@ -1,17 +1,17 @@
 import { Prop } from '@typegoose/typegoose';
 import { TimeStamps, Base } from '@typegoose/typegoose/lib/defaultClasses';
 import { Type } from 'class-transformer';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator';
 
-class AddressForReplenishment {
-  @IsString()
-  @Prop()
-  address: string;
+// class AddressForReplenishment {
+//   @IsString()
+//   @Prop()
+//   address: string;
 
-  @IsNumber()
-  @Prop()
-  index: Number;
-}
+//   @IsNumber()
+//   @Prop()
+//   index: Number;
+// }
 
 export interface AccountModel extends Base {}
 export class AccountModel extends TimeStamps {
@@ -19,9 +19,21 @@ export class AccountModel extends TimeStamps {
   @Prop({ unique: true })
   uid: string;
 
-  @Type(() => AddressForReplenishment)
-  @Prop({ type: () => AddressForReplenishment, _id: false })
-  addressForReplenishment: AddressForReplenishment;
+  @IsNumber()
+  @Prop()
+  balanceRub: number;
+
+  @IsNumber()
+  @Prop()
+  balanceMonero: number;
+
+  @IsArray()
+  @Prop({ type: () => [Number] })
+  notConfirmedMoneroTrx: number[];
+
+  // @Type(() => AddressForReplenishment)
+  // @Prop({ type: () => AddressForReplenishment, _id: false })
+  // addressForReplenishment: AddressForReplenishment;
 
   // @IsOptional()
   // @Prop()

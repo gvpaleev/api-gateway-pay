@@ -4,6 +4,6 @@ export class getAddressForReplenishmentDto {
   @IsString()
   uid: string;
 
-  @IsString()
-  moneroAccountIndex: string;
+  // @IsString()
+  // moneroAccountIndex: string;
 }
